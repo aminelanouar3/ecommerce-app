@@ -1,6 +1,6 @@
 import express from "express";
 import { prisma } from "../prisma.js";
-import { isAdmin } from "../middlewares/auth.js"; // middleware à créer plus tard
+import { isAdmin } from "../middlewares/auth.js"; 
 
 const router = express.Router();
 

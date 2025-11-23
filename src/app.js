@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import productRoutes from "./routes/product.js";
+import userRoutes from "./routes/user.js";
 
 dotenv.config();
 
@@ -13,5 +14,6 @@ app.use(express.json());
 // Routes
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
+app.use("/users", userRoutes);
 
 export default app;
