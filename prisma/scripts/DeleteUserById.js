@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // Change this ID to the user you want to delete
-const userIdToDelete = 3;
+const userIdToDelete = 12;
 
 async function main() {
   try {

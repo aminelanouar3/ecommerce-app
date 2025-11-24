@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 // Inscription
 export const signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, isAdmin } = req.body; // get isAdmin from request
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -14,14 +14,16 @@ export const signup = async (req, res) => {
         name,
         email,
         password: hashedPassword,
+        isAdmin: isAdmin === true || isAdmin === "true" ? true : false, // only true if explicitly true
       },
     });
 
-    res.status(201).json({ message: "User created", userId: user.id });
+    res.status(201).json({ message: "User created", userId: user.id, isAdmin: user.isAdmin });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 // Connexion
 export const login = async (req, res) => {

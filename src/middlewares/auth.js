@@ -9,7 +9,7 @@ export const isAdmin = (req, res, next) => {
     if (!token) return res.status(401).json({ error: 'Token manquant' });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (decoded.role !== 'ADMIN') return res.status(403).json({ error: 'Accès refusé' });
+    if (!decoded.isAdmin) return res.status(403).json({ error: 'Accès refusé' });
 
     req.user = decoded;
     next();

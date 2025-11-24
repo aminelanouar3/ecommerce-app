@@ -4,11 +4,27 @@ import { isAdmin } from "../middlewares/auth.js";
 
 const router = express.Router();
 
+
+
+router.patch("/make-admin/:id", async (req, res) => {
+  try {
+    const user = await prisma.user.update({
+      where: { id: Number(req.params.id) },
+      data: { isAdmin: true },
+    });
+
+    res.json({ message: "User promoted to admin", user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 // GET /user → tous les users
 router.get("/", isAdmin, async (req, res) => {
   try {
     const users = await prisma.user.findMany({
-      select: { id: true, name: true, email: true, role: true }
+      select: { id: true, name: true, email: true, isAdmin: true }
     });
     res.json(users);
   } catch (err) {
@@ -23,7 +39,7 @@ router.get("/:id", isAdmin, async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: parseInt(id) },
-      select: { id: true, name: true, email: true, role: true }
+      select: { id: true, name: true, email: true, isAdmin: true }
     });
     if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
     res.json(user);
