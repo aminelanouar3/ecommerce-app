@@ -1,7 +1,7 @@
 {
   "name": "ecommerce_app",
   "version": "1.0.0",
-   "type": "module",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^7.0.11",
     "prisma": "4.15"
   }
 }

@@ -28,6 +28,10 @@ export const signup = async (req, res) => {
 // Connexion
 export const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log("BODY RECEIVED:", req.body);
+
+  if (!req.body) {
+    return res.status(400).json({ error: "No body received" });}
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });

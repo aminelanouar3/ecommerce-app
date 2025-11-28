@@ -15,6 +15,7 @@ model User {
   isAdmin   Boolean  @default(false)
   orders    Order[]
   createdAt DateTime @default(now())
+  Cart      Cart?
 }
 
 model Product {
@@ -25,6 +26,24 @@ model Product {
   stock       Int
   createdAt   DateTime  @default(now())
   orders      OrderItem[]
+  cartItems   CartItem[]
+}
+
+model Cart {
+  id        Int        @id @default(autoincrement())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int        @unique
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+}
+
+model CartItem {
+  id        Int       @id @default(autoincrement())
+  cart      Cart      @relation(fields: [cartId], references: [id])
+  cartId    Int
+  product   Product   @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int       @default(1)
 }
 
 model Order {
